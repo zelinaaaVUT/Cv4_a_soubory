@@ -72,7 +72,10 @@ public class Test {
             System.out.println("2 .. vlozeni noveho studenta");
             System.out.println("3 .. nastaveni prumeru studenta");
             System.out.println("4 .. vypis informace o studentovi");
-            System.out.println("5 .. ukonceni aplikace");
+            System.out.println("5 .. vypis databaze");
+            System.out.println("6 .. ulozeni do souboru");
+            System.out.println("7 .. nacteci ze souboru");
+            System.out.println("8 .. ukonceni aplikace");
             volba=pouzeCelaCisla(sc);
             switch(volba)
             {
@@ -81,7 +84,15 @@ public class Test {
                     mojeDatabaze=new Databaze(pouzeCelaCisla(sc));
                     break;
                 case 2:
-                    mojeDatabaze.setStudent();
+                    try{
+                        System.out.println("Zadejte jmeno studenta, rok narozeni");
+                        String jmeno = sc.next();
+                        int rok = sc.nextInt();
+                        mojeDatabaze.setStudent(jmeno, rok);
+                    }catch (ArrayIndexOutOfBoundsException e){
+                        System.out.println("Databaze mimo index");
+                    }
+
                     break;
                 case 3:
                     System.out.println("Zadejte index a prumer studenta");
@@ -101,6 +112,34 @@ public class Test {
                     }
                     break;
                 case 5:
+                    try {
+                        mojeDatabaze.returnDatabase();
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
+                    break;
+                case 6:
+                    try {
+                        sc.nextLine();
+                        System.out.println("Zadej nazev souboru: ");
+                        mojeDatabaze.zapisDoSouboru(sc.nextLine());
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
+                    break;
+                case 7:
+                    try {
+                    sc.nextLine();
+                    System.out.println("Zadej nazev souboru: ");
+                    mojeDatabaze.nactiZeSouboru(sc.nextLine(), mojeDatabaze);
+                    }
+                    catch (Exception e){
+                    System.out.println(e);
+                    }
+                    break;
+                case 8:
                     run=false;
                     break;
             }
